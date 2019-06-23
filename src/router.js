@@ -10,7 +10,10 @@ const r = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      redirect: 'home'
+    },
+    {
+      path: '/home',
       component: Home
     },
     {
@@ -18,6 +21,7 @@ const r = new Router({
       name: 'login',
       component: () => import('./views/Login.vue')
     }
+
   ]
 })
 

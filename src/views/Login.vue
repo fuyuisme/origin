@@ -2,7 +2,7 @@
     <div class="login">
         <div class="login-box">
             <img class="logo" src="../assets/logo.png" alt="">
-            <el-form refs="loginRules" :model="loginForm" :rules="loginRules">
+            <el-form ref="loginForm" :model="loginForm" :rules="loginRules">
                 <el-form-item prop="username">
                     <el-input v-model="loginForm.username" prefix-icon="el-icon-user-solid" placeholder="账号"></el-input>
                 </el-form-item>
