@@ -14,7 +14,41 @@ const r = new Router({
     },
     {
       path: '/home',
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: '/users',
+          component: () => import('./views/User.vue')
+        },
+        {
+          path: '/roles',
+          component: () => import('./views/Role.vue')
+        },
+        {
+          path: '/rights',
+          component: () => import('./views/Right.vue')
+        },
+        {
+          path: '/goods',
+          component: () => import('./views/Good.vue')
+        },
+        {
+          path: '/params',
+          component: () => import('./views/Param.vue')
+        },
+        {
+          path: '/categories',
+          component: () => import('./views/Categorie.vue')
+        },
+        {
+          path: '/orders',
+          component: () => import('./views/Order.vue')
+        },
+        {
+          path: '/reports',
+          component: () => import('./views/Report.vue')
+        }
+      ]
     },
     {
       path: '/login',

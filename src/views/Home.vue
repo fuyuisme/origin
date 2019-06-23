@@ -10,13 +10,30 @@
     <el-button @click="logout">退出</el-button>
   </el-header>
   <el-container>
+    <!-- 左侧菜单 -->
     <el-aside width="200px">
-      Aside
+      <el-menu
+      :router="true"
+      background-color="#373d41"
+      text-color="#fff"
+      active-text-color="#399bfb">
+      <el-submenu v-for="(item, index) in menuList" :key="index" :index="item.path">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>{{item.authName}}</span>
+        </template>
+          <el-menu-item v-for="(item1, index1) in item.children" :key="index1" :index="item1.path">
+          <i class="el-icon-location"></i>
+          <span>{{item1.authName}}</span>
+          </el-menu-item>
+      </el-submenu>
+    </el-menu>
 
     </el-aside>
     <el-main>
-      Main
-
+      <!-- 子组件容器 -->
+      <router-view>
+      </router-view>
     </el-main>
   </el-container>
 </el-container>
@@ -24,8 +41,20 @@
 
 <script>
 export default {
-  methods:{
-    logout() {
+  data () {
+    return {
+      menuList: []
+    }
+  },
+  async created () {
+    // 获取左侧数据
+    const menus = await this.axios.get('/menus')
+    console.log(menus)
+    if (menus.data.meta.status !== 200) return this.$message.error('获取菜单列表失败')
+    this.menuList = menus.data.data
+  },
+  methods: {
+    logout () {
       sessionStorage.removeItem('token')
       this.$router.push('login')
     }

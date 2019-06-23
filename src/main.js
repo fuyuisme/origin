@@ -12,7 +12,17 @@ Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
 Vue.axios.defaults.baseURL = 'http://127.0.0.1:11333/api/private/v1'
 
-Vue.config.productionTip = false
+axios.interceptors.request.use(function (config) {
+  let t = sessionStorage.getItem('token')
+  if (t) {
+    config.headers = {
+      Authorization: t
+    }
+  }
+  return config
+}, function (error) {
+  return Promise.reject(error)
+})
 
 new Vue({
   router,
